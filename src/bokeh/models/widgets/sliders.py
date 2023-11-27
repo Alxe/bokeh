@@ -28,6 +28,7 @@ from typing import Any
 # Bokeh imports
 from ...core.has_props import abstract
 from ...core.properties import (
+    AnyRef,
     Bool,
     Datetime,
     Either,
@@ -97,6 +98,10 @@ class AbstractSlider(Widget):
     # Initial or selected value, throttled according to report only on mouseup.
     # """)
 
+    value = Required(AnyRef, help="""
+    Initial or selected value.
+    """)
+
     orientation = Enum("horizontal", "vertical", help="""
     Orient the slider either horizontally (default) or vertically.
     """)
@@ -136,6 +141,12 @@ class NumericalSlider(AbstractSlider):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
 
+    step = Nullable(Positive(Float), default=1, help="""
+    The step between consecutive values for discrete sliders. If ``None``,
+    then the slider becomes a continuous slider and any value between
+    ``start`` and ``end`` can be picked.
+    """)
+
     format = Either(String, Instance(TickFormatter), help="""
     """)
 
@@ -150,12 +161,12 @@ class CategoricalSlider(AbstractSlider):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
 
+    value = Override(Required(String, help="""
+    Initial or selected category.
+    """))
+
     categories = Required(Seq(String), help="""
     A collection of categories to choose from.
-    """)
-
-    value = Required(String, help="""
-    Initial or selected value.
     """)
 
     value_throttled = Readonly(Required(String), help="""
@@ -177,18 +188,12 @@ class Slider(NumericalSlider):
     The maximum allowable value.
     """)
 
-    value = Required(Float, help="""
-    Initial or selected value.
-    """)
+    value = Override(Required(Float, help="""
+    Initial or selected number.
+    """))
 
     value_throttled = Readonly(Required(Float), help="""
     Initial or selected value, throttled according to report only on mouseup.
-    """)
-
-    step = Nullable(Positive(Float), default=1, help="""
-    The step between consecutive values for discrete sliders. If ``None``,
-    then the slider becomes a continuous slider and any value between
-    ``start`` and ``end`` can be picked.
     """)
 
     format = Override(default="0[.]00")
@@ -200,9 +205,9 @@ class RangeSlider(NumericalSlider):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
 
-    value = Required(Tuple(Float, Float), help="""
-    Initial or selected range.
-    """)
+    value = Override(Required(Tuple(Float, Float), help="""
+    Initial or selected range of numbers.
+    """))
 
     value_throttled = Readonly(Required(Tuple(Float, Float)), help="""
     Initial or selected value, only changed at the end of an interaction.
@@ -216,10 +221,6 @@ class RangeSlider(NumericalSlider):
     The maximum allowable value.
     """)
 
-    step = Float(default=1, help="""
-    The step between consecutive values.
-    """)
-
     format = Override(default="0[.]00")
 
 class MultiValuedSlider(NumericalSlider):
@@ -229,10 +230,9 @@ class MultiValuedSlider(NumericalSlider):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    # TODO value = Override(Required(Seq(Float)), ...)
-    value = Required(Seq(Float), help="""
-    Initial or selected values.
-    """)
+    value = Override(Required(Seq(Float), help="""
+    Initial or selected numbers.
+    """))
 
     value_throttled = Readonly(Required(Seq(Float)), help="""
     Initial or selected values, only changed at the end of an interaction.
@@ -244,10 +244,6 @@ class MultiValuedSlider(NumericalSlider):
 
     end = Required(Float, help="""
     The maximum allowable value.
-    """)
-
-    step = Float(default=1, help="""
-    The step between consecutive values.
     """)
 
     format = Override(default="0[.]00")
@@ -288,9 +284,9 @@ class DateSlider(NumericalSlider):
 
         return self.value
 
-    value = Required(Datetime, help="""
+    value = Override(Required(Datetime, help="""
     Initial or selected value.
-    """)
+    """))
 
     value_throttled = Readonly(Required(Datetime), help="""
     Initial or selected value, only changed at the end of an interaction.
@@ -302,10 +298,6 @@ class DateSlider(NumericalSlider):
 
     end = Required(Datetime, help="""
     The maximum allowable value.
-    """)
-
-    step = Int(default=1, help="""
-    The step between consecutive values, in units of days.
     """)
 
     format = Override(default="%d %b %Y")
@@ -359,9 +351,9 @@ class DateRangeSlider(NumericalSlider):
             d2 = v2
         return d1, d2
 
-    value = Required(Tuple(Datetime, Datetime), help="""
-    Initial or selected range.
-    """)
+    value = Override(Required(Tuple(Datetime, Datetime), help="""
+    Initial or selected range of dates.
+    """))
 
     value_throttled = Readonly(Required(Tuple(Datetime, Datetime)), help="""
     Initial or selected value, only changed at the end of an interaction.
@@ -375,9 +367,9 @@ class DateRangeSlider(NumericalSlider):
     The maximum allowable value.
     """)
 
-    step = Int(default=1, help="""
+    step = Override(Int(default=1, help="""
     The step between consecutive values, in units of days.
-    """)
+    """))
 
     format = Override(default="%d %b %Y")
 
@@ -406,9 +398,9 @@ class DatetimeRangeSlider(NumericalSlider):
             d2 = v2
         return d1, d2
 
-    value = Required(Tuple(Datetime, Datetime), help="""
-    Initial or selected range.
-    """)
+    value = Override(Required(Tuple(Datetime, Datetime), help="""
+    Initial or selected range of dates and times.
+    """))
 
     value_throttled = Readonly(Required(Tuple(Datetime, Datetime)), help="""
     Initial or selected value, only changed at the end of an interaction.
@@ -422,10 +414,10 @@ class DatetimeRangeSlider(NumericalSlider):
     The maximum allowable value.
     """)
 
-    step = Int(default=3_600_000, help="""
+    step = Override(Int(default=3_600_000, help="""
     The step between consecutive values, in units of milliseconds.
     Default is one hour.
-    """)
+    """))
 
     # TODO step_unit = Enum("hour", ...)(default="hour")
 
