@@ -42,6 +42,9 @@ export abstract class Range extends Model {
 
   protected _computed_bounds: [number, number]
   get computed_bounds(): [number, number] {
+    if (this._computed_bounds === undefined) {  // IANT
+      this._computed_bounds = [-Infinity, Infinity]
+    }
     return this._computed_bounds
   }
 

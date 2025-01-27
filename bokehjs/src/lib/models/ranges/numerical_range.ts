@@ -36,6 +36,7 @@ export abstract class NumericalRange extends Range {
       }],
     }))
   }
+
   /*
   override set start(v: number) {
     const [lower, upper] = this.computed_bounds
