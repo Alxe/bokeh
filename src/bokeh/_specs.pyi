@@ -102,6 +102,14 @@ type Number3dVal = Sequence[Sequence[Sequence[float | Datetime | TimeDelta]]]
 type Number3dSpec = DataSpec[Number3dVal]
 type Number3dArg = FieldName | Number3dVal | Number3dSpec | Sequence[Number3dVal] | Number3dArray
 
+type Image2dVal = Number2dArray
+type Image2dSpec = DataSpec[Image2dVal]
+type Image2dArg = FieldName | Image2dSpec | Sequence[Image2dVal]
+
+type Image3dVal = Number3dArray
+type Image3dSpec = DataSpec[Image3dVal]
+type Image3dArg = FieldName | Image3dSpec | Sequence[Image3dVal]
+
 type SizeVal = NonNegative[float] | Datetime | TimeDelta
 type SizeSpec = DataSpec[SizeVal]
 type SizeArg = FieldName | SizeVal | Sequence[SizeVal] | SizeSpec | NumberArray
