@@ -28,6 +28,7 @@ from ...util.strings import nice_join
 from .. import enums
 from ._sphinx import model_link, property_link, register_type_link
 from .bases import Init
+from .exceptions import ValueValidationError
 from .primitive import String
 from .singletons import Intrinsic
 
@@ -96,7 +97,7 @@ class Enum(String):
             return
 
         msg = "" if not detail else f"invalid value: {value!r}; allowed values are {nice_join(self.allowed_values)}"
-        raise ValueError(msg)
+        raise ValueValidationError(msg)
 
 #-----------------------------------------------------------------------------
 # Dev API
