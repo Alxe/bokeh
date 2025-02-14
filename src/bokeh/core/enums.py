@@ -126,7 +126,7 @@ __all__ = (
     'LineDash',
     'LineJoin',
     'Location',
-    'LogoStyle',
+    'LogoVariant',
     'MapType',
     'MarkerType',
     'Movable',
@@ -463,9 +463,9 @@ LineJoin = enumeration(LineJoinType)
 LocationType = Literal["above", "below", "left", "right"]
 Location = enumeration(LocationType)
 
-#: The style of the logo in the toolbar
-LogoStyleType = Literal["normal", "grey"]
-LogoStyle = enumeration(LogoStyleType)
+#: The variant of the logo in the toolbar
+LogoVariantType = Literal["normal", "grey"]
+LogoVariant = enumeration(LogoVariantType)
 
 #: Specify a style for a Google map
 MapTypeType = Literal["satellite", "roadmap", "terrain", "hybrid"]
