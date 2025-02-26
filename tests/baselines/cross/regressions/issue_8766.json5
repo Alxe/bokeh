@@ -281,10 +281,6 @@
                             type: "object",
                             name: "Selection",
                             id: "p1032",
-                            attributes: {
-                              indices: [],
-                              line_indices: [],
-                            },
                           },
                           selection_policy: {
                             type: "object",
@@ -471,13 +467,6 @@
                         type: "object",
                         name: "BasicTicker",
                         id: "p1018",
-                        attributes: {
-                          mantissas: [
-                            1,
-                            2,
-                            5,
-                          ],
-                        },
                       },
                       formatter: {
                         type: "object",
@@ -502,13 +491,6 @@
                         type: "object",
                         name: "BasicTicker",
                         id: "p1013",
-                        attributes: {
-                          mantissas: [
-                            1,
-                            2,
-                            5,
-                          ],
-                        },
                       },
                       formatter: {
                         type: "object",
@@ -599,10 +581,6 @@
                             type: "object",
                             name: "Selection",
                             id: "p1071",
-                            attributes: {
-                              indices: [],
-                              line_indices: [],
-                            },
                           },
                           selection_policy: {
                             type: "object",
@@ -789,13 +767,6 @@
                         type: "object",
                         name: "BasicTicker",
                         id: "p1057",
-                        attributes: {
-                          mantissas: [
-                            1,
-                            2,
-                            5,
-                          ],
-                        },
                       },
                       formatter: {
                         type: "object",
@@ -820,13 +791,6 @@
                         type: "object",
                         name: "BasicTicker",
                         id: "p1052",
-                        attributes: {
-                          mantissas: [
-                            1,
-                            2,
-                            5,
-                          ],
-                        },
                       },
                       formatter: {
                         type: "object",
@@ -917,10 +881,6 @@
                             type: "object",
                             name: "Selection",
                             id: "p1110",
-                            attributes: {
-                              indices: [],
-                              line_indices: [],
-                            },
                           },
                           selection_policy: {
                             type: "object",
@@ -1107,13 +1067,6 @@
                         type: "object",
                         name: "BasicTicker",
                         id: "p1096",
-                        attributes: {
-                          mantissas: [
-                            1,
-                            2,
-                            5,
-                          ],
-                        },
                       },
                       formatter: {
                         type: "object",
@@ -1138,13 +1091,6 @@
                         type: "object",
                         name: "BasicTicker",
                         id: "p1091",
-                        attributes: {
-                          mantissas: [
-                            1,
-                            2,
-                            5,
-                          ],
-                        },
                       },
                       formatter: {
                         type: "object",

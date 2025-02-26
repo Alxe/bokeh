@@ -45,10 +45,6 @@
                     type: "object",
                     name: "Selection",
                     id: "p1009",
-                    attributes: {
-                      indices: [],
-                      line_indices: [],
-                    },
                   },
                   selection_policy: {
                     type: "object",
@@ -116,10 +112,6 @@
                     type: "object",
                     name: "Selection",
                     id: "p1015",
-                    attributes: {
-                      indices: [],
-                      line_indices: [],
-                    },
                   },
                   selection_policy: {
                     type: "object",
@@ -203,10 +195,6 @@
                     type: "object",
                     name: "Selection",
                     id: "p1021",
-                    attributes: {
-                      indices: [],
-                      line_indices: [],
-                    },
                   },
                   selection_policy: {
                     type: "object",
@@ -290,10 +278,6 @@
                     type: "object",
                     name: "Selection",
                     id: "p1027",
-                    attributes: {
-                      indices: [],
-                      line_indices: [],
-                    },
                   },
                   selection_policy: {
                     type: "object",
@@ -377,10 +361,6 @@
                     type: "object",
                     name: "Selection",
                     id: "p1033",
-                    attributes: {
-                      indices: [],
-                      line_indices: [],
-                    },
                   },
                   selection_policy: {
                     type: "object",
@@ -464,10 +444,6 @@
                     type: "object",
                     name: "Selection",
                     id: "p1039",
-                    attributes: {
-                      indices: [],
-                      line_indices: [],
-                    },
                   },
                   selection_policy: {
                     type: "object",
@@ -540,10 +516,6 @@
                     type: "object",
                     name: "Selection",
                     id: "p1045",
-                    attributes: {
-                      indices: [],
-                      line_indices: [],
-                    },
                   },
                   selection_policy: {
                     type: "object",

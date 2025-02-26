@@ -45,10 +45,6 @@
                     type: "object",
                     name: "Selection",
                     id: "p1002",
-                    attributes: {
-                      indices: [],
-                      line_indices: [],
-                    },
                   },
                   selection_policy: {
                     type: "object",

@@ -37,6 +37,7 @@ from bokeh.core.properties import (
     List,
     Nullable,
     Required,
+    Seq,
     String,
 )
 from bokeh.core.property.descriptors import UnsetValueError
@@ -78,15 +79,17 @@ class SomeProps(HasProps):
     p0 = Int(default=1)
     p1 = String()
     p2 = List(Int)
+    p3 = Seq(String, default=[])
 
 class SomeModel(Model):
     p0 = Int(default=1)
     p1 = String()
     p2 = List(Int)
     p3 = Nullable(Instance(lambda: SomeModel))
+    p4 = Seq(String, default=[])
 
 class SomeModelUnset(SomeModel):
-    p4 = Required(Int)
+    p5 = Required(Int)
 
 @dataclass
 class SomeDataClass:
@@ -197,6 +200,43 @@ class TestSerializer:
         encoder = Serializer()
         with pytest.raises(SerializationError):
             encoder.encode(val)
+
+    def test_seq_empty(self) -> None:
+        encoder = Serializer()
+
+        v0 = SomeModel(p4=[])
+        assert encoder.encode(v0) == ObjectRefRep(
+            type="object",
+            name="test_serialization.SomeModel",
+            id=v0.id,
+        )
+
+        v1 = SomeModel(p4=())
+        assert encoder.encode(v1) == ObjectRefRep(
+            type="object",
+            name="test_serialization.SomeModel",
+            id=v1.id,
+        )
+
+        v2 = SomeModel(p4=["a", "b", "c"])
+        assert encoder.encode(v2) == ObjectRefRep(
+            type="object",
+            name="test_serialization.SomeModel",
+            id=v2.id,
+            attributes=dict(
+                p3=["a", "b", "c"],
+            ),
+        )
+
+        v3 = SomeModel(p4=("a", "b", "c"))
+        assert encoder.encode(v3) == ObjectRefRep(
+            type="object",
+            name="test_serialization.SomeModel",
+            id=v3.id,
+            attributes=dict(
+                p3=["a", "b", "c"],
+            ),
+        )
 
     def test_dict_empty(self) -> None:
         val = {}
