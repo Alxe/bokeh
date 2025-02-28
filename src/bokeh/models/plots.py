@@ -554,50 +554,11 @@ class Plot(LayoutDOM):
     .. note:: This feature is experimental and may change in the short term.
     """)
 
-    hidpi = Bool(default=True, help="""
-    Whether to use HiDPI mode when available.
-    """)
-
-    title = Either(Null, Instance(Title), default=InstanceDefault(Title, text=""), help="""
-    A title for the plot. Can be a text string or a Title annotation.
-    """).accepts(String, lambda text: Title(text=text))
-
-    title_location = Nullable(Enum(Location), default="above", help="""
-    Where the title will be located. Titles on the left or right side
-    will be rotated.
-    """)
-
-    outline_props = Include(ScalarLineProps, prefix="outline", help="""
-    The {prop} for the plot border outline.
-    """)
-
-    outline_line_color = Override(default="#e5e5e5")
-
     renderers = List(Instance(Renderer), help="""
     A list of all glyph renderers for this plot.
 
     This property can be manipulated by hand, but the ``add_glyph`` is
     recommended to help make sure all necessary setup is performed.
-    """)
-
-    toolbar = Instance(Toolbar, default=InstanceDefault(Toolbar), help="""
-    The toolbar associated with this plot which holds all the tools. It is
-    automatically created with the plot if necessary.
-    """)
-
-    toolbar_location = Nullable(Enum(Location), default="right", help="""
-    Where the toolbar will be located. If set to None, no toolbar
-    will be attached to the plot.
-    """)
-
-    toolbar_sticky = Bool(default=True, help="""
-    Stick the toolbar to the edge of the plot. Default: True. If False,
-    the toolbar will be outside of the axes, titles etc.
-    """)
-
-    toolbar_inner = Bool(default=False, help="""
-    Locate the toolbar inside the frame. Setting this property to ``True``
-    makes most sense with auto-hidden toolbars.
     """)
 
     left = List(Instance(Renderer), help="""
@@ -618,6 +579,41 @@ class Plot(LayoutDOM):
 
     center = List(Instance(Renderer), help="""
     A list of renderers to occupy the center area (frame) of the plot.
+    """)
+
+    title = Either(Null, Instance(Title), default=InstanceDefault(Title, text=""), help="""
+    A title for the plot. Can be a text string or a Title annotation.
+    """).accepts(String, lambda text: Title(text=text))
+
+    title_location = Nullable(Enum(Location), default="above", help="""
+    Where the title will be located. Titles on the left or right side
+    will be rotated.
+    """)
+
+    outline_props = Include(ScalarLineProps, prefix="outline", help="""
+    The {prop} for the plot border outline.
+    """)
+
+    outline_line_color = Override(default="#e5e5e5")
+
+    toolbar = Instance(Toolbar, default=InstanceDefault(Toolbar), help="""
+    The toolbar associated with this plot which holds all the tools. It is
+    automatically created with the plot if necessary.
+    """)
+
+    toolbar_location = Nullable(Enum(Location), default="right", help="""
+    Where the toolbar will be located. If set to None, no toolbar
+    will be attached to the plot.
+    """)
+
+    toolbar_sticky = Bool(default=True, help="""
+    Stick the toolbar to the edge of the plot. Default: True. If False,
+    the toolbar will be outside of the axes, titles etc.
+    """)
+
+    toolbar_inner = Bool(default=False, help="""
+    Locate the toolbar inside the frame. Setting this property to ``True``
+    makes most sense with auto-hidden toolbars.
     """)
 
     width: int | None = Override(default=600)
@@ -773,6 +769,10 @@ class Plot(LayoutDOM):
     occurring. Once level-of-detail mode is enabled, a check is made every
     ``lod_timeout`` ms. If no interactive tool events have happened,
     level-of-detail mode is disabled.
+    """)
+
+    hidpi = Bool(default=True, help="""
+    Whether to use high DPI mode when available.
     """)
 
     output_backend = Enum(OutputBackend, default="canvas", help="""

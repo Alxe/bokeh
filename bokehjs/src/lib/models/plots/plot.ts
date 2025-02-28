@@ -39,26 +39,6 @@ export namespace Plot {
   export type Attrs = p.AttrsOf<Props>
 
   export type Props = LayoutDOM.Props & {
-    toolbar: p.Property<Toolbar>
-    toolbar_location: p.Property<Location | null>
-    toolbar_sticky: p.Property<boolean>
-    toolbar_inner: p.Property<boolean>
-
-    frame_width: p.Property<number | null>
-    frame_height: p.Property<number | null>
-    frame_align: p.Property<boolean | Partial<LRTB<boolean>>>
-
-    title: p.Property<Title | string | null>
-    title_location: p.Property<Location | null>
-
-    above: p.Property<(Annotation | Axis)[]>
-    below: p.Property<(Annotation | Axis)[]>
-    left: p.Property<(Annotation | Axis)[]>
-    right: p.Property<(Annotation | Axis)[]>
-    center: p.Property<(Annotation | Grid)[]>
-
-    renderers: p.Property<Renderer[]>
-
     x_range: p.Property<Range>
     y_range: p.Property<Range>
 
@@ -71,6 +51,38 @@ export namespace Plot {
     extra_x_scales: p.Property<Dict<Scale>>
     extra_y_scales: p.Property<Dict<Scale>>
 
+    renderers: p.Property<Renderer[]>
+
+    above: p.Property<(Annotation | Axis)[]>
+    below: p.Property<(Annotation | Axis)[]>
+    left: p.Property<(Annotation | Axis)[]>
+    right: p.Property<(Annotation | Axis)[]>
+    center: p.Property<(Annotation | Grid)[]>
+
+    title: p.Property<Title | string | null>
+    title_location: p.Property<Location | null>
+
+    toolbar: p.Property<Toolbar>
+    toolbar_location: p.Property<Location | null>
+    toolbar_sticky: p.Property<boolean>
+    toolbar_inner: p.Property<boolean>
+
+    frame_width: p.Property<number | null>
+    frame_height: p.Property<number | null>
+    frame_align: p.Property<boolean | Partial<LRTB<boolean>>>
+
+    inner_width: p.Property<number>
+    inner_height: p.Property<number>
+
+    outer_width: p.Property<number>
+    outer_height: p.Property<number>
+
+    min_border: p.Property<number | null>
+    min_border_top: p.Property<number | null>
+    min_border_left: p.Property<number | null>
+    min_border_bottom: p.Property<number | null>
+    min_border_right: p.Property<number | null>
+
     lod_factor: p.Property<number>
     lod_interval: p.Property<number>
     lod_threshold: p.Property<number | null>
@@ -79,22 +91,10 @@ export namespace Plot {
     hidpi: p.Property<boolean>
     output_backend: p.Property<OutputBackend>
 
-    min_border: p.Property<number | null>
-    min_border_top: p.Property<number | null>
-    min_border_left: p.Property<number | null>
-    min_border_bottom: p.Property<number | null>
-    min_border_right: p.Property<number | null>
-
-    inner_width: p.Property<number>
-    inner_height: p.Property<number>
-    outer_width: p.Property<number>
-    outer_height: p.Property<number>
-
     match_aspect: p.Property<boolean>
     aspect_scale: p.Property<number>
 
     reset_policy: p.Property<ResetPolicy>
-
     hold_render: p.Property<boolean>
 
     attribution: p.Property<(string | HTML)[]>
@@ -142,29 +142,6 @@ export class Plot extends LayoutDOM {
     ])
 
     this.define<Plot.Props>(({Bool, Float, Str, List, Dict, Or, Ref, Null, Nullable, Struct, Opt}) => ({
-      toolbar:           [ Ref(Toolbar), () => new Toolbar() ],
-      toolbar_location:  [ Nullable(Location), "right" ],
-      toolbar_sticky:    [ Bool, true ],
-      toolbar_inner:     [ Bool, false ],
-
-      frame_width:       [ Nullable(Float), null ],
-      frame_height:      [ Nullable(Float), null ],
-      frame_align:       [ Or(Bool, Struct({left: Opt(Bool), right: Opt(Bool), top: Opt(Bool), bottom: Opt(Bool)})), true ],
-
-      // revise this when https://github.com/microsoft/TypeScript/pull/42425 is merged
-      title:             [ Or(Ref(Title), Str, Null), "", {
-        convert: (title) => isString(title) ? new Title({text: title}) : title,
-      }],
-      title_location:    [ Nullable(Location), "above" ],
-
-      above:             [ List(Or(Ref(Annotation), Ref(Axis))), [] ],
-      below:             [ List(Or(Ref(Annotation), Ref(Axis))), [] ],
-      left:              [ List(Or(Ref(Annotation), Ref(Axis))), [] ],
-      right:             [ List(Or(Ref(Annotation), Ref(Axis))), [] ],
-      center:            [ List(Or(Ref(Annotation), Ref(Grid))), [] ],
-
-      renderers:         [ List(Ref(Renderer)), [] ],
-
       x_range:           [ Ref(Range), () => new DataRange1d() ],
       y_range:           [ Ref(Range), () => new DataRange1d() ],
 
@@ -177,6 +154,41 @@ export class Plot extends LayoutDOM {
       extra_x_scales:    [ Dict(Ref(Scale)), {} ],
       extra_y_scales:    [ Dict(Ref(Scale)), {} ],
 
+      renderers:         [ List(Ref(Renderer)), [] ],
+
+      above:             [ List(Or(Ref(Annotation), Ref(Axis))), [] ],
+      below:             [ List(Or(Ref(Annotation), Ref(Axis))), [] ],
+      left:              [ List(Or(Ref(Annotation), Ref(Axis))), [] ],
+      right:             [ List(Or(Ref(Annotation), Ref(Axis))), [] ],
+      center:            [ List(Or(Ref(Annotation), Ref(Grid))), [] ],
+
+      // revise this when https://github.com/microsoft/TypeScript/pull/42425 is merged
+      title:             [ Or(Ref(Title), Str, Null), "", {
+        convert: (title) => isString(title) ? new Title({text: title}) : title,
+      }],
+      title_location:    [ Nullable(Location), "above" ],
+
+      toolbar:           [ Ref(Toolbar), () => new Toolbar() ],
+      toolbar_location:  [ Nullable(Location), "right" ],
+      toolbar_sticky:    [ Bool, true ],
+      toolbar_inner:     [ Bool, false ],
+
+      frame_width:       [ Nullable(Float), null ],
+      frame_height:      [ Nullable(Float), null ],
+      frame_align:       [ Or(Bool, Struct({left: Opt(Bool), right: Opt(Bool), top: Opt(Bool), bottom: Opt(Bool)})), true ],
+
+      inner_width:       [ Float, p.unset, {readonly: true} ],
+      inner_height:      [ Float, p.unset, {readonly: true} ],
+
+      outer_width:       [ Float, p.unset, {readonly: true} ],
+      outer_height:      [ Float, p.unset, {readonly: true} ],
+
+      min_border:        [ Nullable(Float), 5 ],
+      min_border_top:    [ Nullable(Float), null ],
+      min_border_left:   [ Nullable(Float), null ],
+      min_border_bottom: [ Nullable(Float), null ],
+      min_border_right:  [ Nullable(Float), null ],
+
       lod_factor:        [ Float, 10 ],
       lod_interval:      [ Float, 300 ],
       lod_threshold:     [ Nullable(Float), 2000 ],
@@ -185,22 +197,10 @@ export class Plot extends LayoutDOM {
       hidpi:             [ Bool, true ],
       output_backend:    [ OutputBackend, "canvas" ],
 
-      min_border:        [ Nullable(Float), 5 ],
-      min_border_top:    [ Nullable(Float), null ],
-      min_border_left:   [ Nullable(Float), null ],
-      min_border_bottom: [ Nullable(Float), null ],
-      min_border_right:  [ Nullable(Float), null ],
-
-      inner_width:       [ Float, p.unset, {readonly: true} ],
-      inner_height:      [ Float, p.unset, {readonly: true} ],
-      outer_width:       [ Float, p.unset, {readonly: true} ],
-      outer_height:      [ Float, p.unset, {readonly: true} ],
-
       match_aspect:      [ Bool, false ],
       aspect_scale:      [ Float, 1 ],
 
       reset_policy:      [ ResetPolicy, "standard" ],
-
       hold_render:       [ Bool, false ],
 
       attribution:       [ List(Or(Str, Ref(HTML))), [] ],
