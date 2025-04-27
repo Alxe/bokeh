@@ -453,3 +453,7 @@ class LineEditTool(EditTool, Drag, Tap):
     intersection_renderer: GlyphRenderer[Line] = ...
 
     dimensions: Dimensions = ...
+
+@dataclass
+class ToggleTextSelectionTool(PlotActionTool):
+    pass

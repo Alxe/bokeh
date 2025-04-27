@@ -371,6 +371,7 @@ describe("default model resolver", () => {
       "TimePicker",
       "Title",
       "Toggle",
+      "ToggleTextSelectionTool",
       "ToggleVisibility",
       "Tool",
       "ToolButton",

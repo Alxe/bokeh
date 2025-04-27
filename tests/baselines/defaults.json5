@@ -5557,6 +5557,7 @@
     reset_policy: "standard",
     hold_render: false,
     attribution: [],
+    selectable_text: true,
   },
   DataRange: {
     __extends__: "NumericalRange",
@@ -6791,6 +6792,9 @@
       type: "map",
     },
     callback: null,
+  },
+  ToggleTextSelectionTool: {
+    __extends__: "PlotActionTool",
   },
   Tool: {
     __extends__: "Model",
